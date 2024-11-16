@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: app2
+
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+# This generator just generates a config map from the local html file so we can
+# mount it into the deployment to be served by nginx
+configMapGenerator:
+  - name: app2-index
+    files:
+      - index.html=files/index.html
+    options:
+      disableNameSuffixHash: true

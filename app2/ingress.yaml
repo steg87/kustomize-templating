@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app2
+  annotations:
+    # Remove the /app2 prefix from path when passing to upstream service
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx # Ingress class for default minikube ingress controller
+  rules:
+    - host: local.minikube.com
+      http:
+        paths:
+          - path: /app2
+            pathType: Prefix
+            backend:
+              service:
+                name: app2
+                port:
+                  name: http
