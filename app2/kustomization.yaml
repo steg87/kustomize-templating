@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: app2
 
 resources:
+  - ../config # We need to include the config map from the config directory
   - namespace.yaml
   - deployment.yaml
   - service.yaml
@@ -17,3 +18,16 @@ configMapGenerator:
       - index.html=files/index.html
     options:
       disableNameSuffixHash: true
+
+# Configure the replacements for the deployment
+replacements:
+  - source:
+      kind: ConfigMap
+      name: globals
+      fieldPath: data.hostname
+    targets:
+      - select:
+          kind: Ingress
+          name: app2
+        fieldPaths:
+          - spec.rules.0.host
