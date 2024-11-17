@@ -4,6 +4,12 @@ This is a demonstration repository to illustrate how we can create a post-render
 
 ## Build
 
+### Dependencies
+
+This deployment requires the following local installations:
+- (Kustomize)[https://kubectl.docs.kubernetes.io/installation/kustomize/]
+- (Gomplate)[https://docs.gomplate.ca/installing/]
+
 ### Environment
 
 To deploy this example as easily as possible, here is how to build a suitable Minikube cluster for development purposes.
@@ -44,5 +50,25 @@ If you just want to see the generated manifests you can do `make build` to see t
 
 Two apps are deployed as part of this application, app1 and app2. They are very simple html files served by nginx containers. You can view their content at:
 
-- local.minikube.com/app1
-- local.minikube.com/app2
+- http://local.minikube.com/app1
+- http://local.minikube.com/app2
+
+## Development
+
+### Templates
+
+You can view the unrendered templates with:
+
+```bash
+make template
+```
+
+This is useful for debugging Gomplate errors when rendering the templates.
+
+### Build
+
+You can view the manifests that will be deployed with:
+
+```bash
+make build
+```

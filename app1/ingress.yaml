@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx # Ingress class for default minikube ingress controller
   rules:
-    - host: <<REPLACE>> # Replace this with the hostname from the globals config map
+    - host: ${[.config.hostname]}
       http:
         paths:
           - path: /app1
